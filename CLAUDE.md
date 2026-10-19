@@ -2,7 +2,7 @@
 
 ## Objectif
 Site officiel du Salon de l'économie verte, finance responsable et développement durable (IA4EARTH, 3e édition),
-5–6 novembre 2026, Centre International des Congrès (UTICA), Tunis. Organisé par Neo Influence. Langue : français (accroche arabe : الابتكار من أجل عالم مستدام).
+5–6 novembre 2026, Centre International des Congrès (UTICA), Tunis. Organisé par Neo Influence. Langue : français (accroche arabe : الذكاء الاصطناعي من أجل الأرض، نبتكر من أجل عالم مستدام).
 
 ## Prototype validé
 `ia4earth-prototype.html` : page unique autonome (HTML/CSS/JS, Three.js r128 depuis cdnjs). Il sert de référence visuelle et de contenu.

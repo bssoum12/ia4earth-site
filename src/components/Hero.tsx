@@ -41,7 +41,7 @@ export default function Hero() {
           </h1>
           <p className="tag" style={d(4)}>Innover pour un <span className="red">monde durable</span></p>
           <p className="eco" style={d(5)}>Une planète vivante, éclairée par l&apos;IA</p>
-          <p className="tag-ar" lang="ar" dir="rtl" style={d(6)}>الابتكار من أجل عالم مستدام</p>
+          <p className="tag-ar" lang="ar" dir="rtl" style={d(6)}>الذكاء الاصطناعي من أجل الأرض<br />نبتكر من أجل عالم مستدام</p>
 
           <div className="facts" style={d(7)}>
             <p className="date">5–6 novembre 2026</p>
