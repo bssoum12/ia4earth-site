@@ -1,0 +1,60 @@
+/* =====================================================================
+   Mobile (≤ 860 px) : lisibilité, contrastes, palette plus sobre.
+   Chargé en dernier ; n'affecte pas l'affichage sur ordinateur.
+   ===================================================================== */
+
+.sticky-cta { display: none; }
+
+@media (max-width: 860px) {
+  /* Palette : texte secondaire plus clair, bordures plus nettes, cartes plus opaques, rouge plus lumineux */
+  :root {
+    --muted: #cfe9dc;
+    --line: rgba(110, 255, 190, 0.4);
+    --glass: rgba(3, 22, 17, 0.92);
+    --red: #ff5a75;
+  }
+  .red { text-shadow: none; }
+  .sec { background: rgba(2, 19, 15, 0.86); }
+  .sec--deep { background: rgba(3, 30, 24, 0.92); }
+
+  /* Moins de vert décoratif : le vif est réservé aux boutons et aux mots clés */
+  .nebula { opacity: 0.55; }
+  .sec::before { opacity: 0.45; }
+  .mark { filter: drop-shadow(0 0 12px rgba(77, 255, 154, 0.22)); }
+  h2::after { box-shadow: 0 0 8px var(--cyan); }
+  .btn--glow { box-shadow: 0 0 16px rgba(77, 255, 154, 0.28); }
+  .tl__fill, .steps::after { box-shadow: 0 0 8px var(--green); }
+
+  /* Hero : voile sombre sur toute la hauteur, globe repoussé, contenu raccourci */
+  .hero { padding-block: 84px calc(28px + var(--cut)); }
+  .hero::before { background: linear-gradient(180deg, rgba(2, 19, 15, 0.18) 0%, rgba(2, 19, 15, 0.5) 22%, rgba(2, 19, 15, 0.84) 40%, rgba(2, 19, 15, 0.93) 100%); }
+  .tunis-tag { display: none; }
+  .eco { display: none; }
+  .official { color: #dff3e8; font-size: 0.92rem; text-shadow: 0 1px 14px rgba(2, 19, 15, 0.95); }
+  .tag { margin-top: 14px; text-shadow: 0 1px 14px rgba(2, 19, 15, 0.95); }
+  .tag-ar { margin-top: 2px; }
+  .facts { margin-top: 18px; padding-top: 14px; gap: 10px; }
+  .count { flex-wrap: nowrap; gap: 8px; }
+  .count div { flex: 1 1 0; min-width: 0; padding: 8px 8px 6px; background: rgba(3, 22, 17, 0.92); }
+  .count b { font-size: 1.45rem; }
+  .count-note { font-size: 0.84rem; }
+  .cta { margin-top: 16px; }
+  .cta .btn { flex: 1 1 100%; }
+  .cta .btn--ghost { display: none; }
+
+  /* Barre d'inscription fixe */
+  .sticky-cta {
+    display: flex; position: fixed; left: 0; right: 0; bottom: 0; z-index: 35; align-items: center; justify-content: space-between; gap: 12px;
+    padding: 10px max(16px, env(safe-area-inset-right)) calc(10px + env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left));
+    background: rgba(2, 19, 15, 0.94); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-top: 1px solid var(--line);
+    transform: translateY(110%); transition: transform 0.3s ease;
+  }
+  .sticky-cta.show { transform: none; }
+  .sticky-cta span { font: 600 0.84rem var(--font-body); color: var(--amber); }
+  .globe-reset { bottom: 84px; }
+  .foot { padding-bottom: calc(40px + 68px); }
+}
+
+@media (max-width: 860px) and (prefers-reduced-motion: reduce) {
+  .sticky-cta { transition: none; }
+}
