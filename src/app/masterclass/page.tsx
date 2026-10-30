@@ -16,10 +16,12 @@ export const metadata: Metadata = {
 
 export default async function MasterclassPage() {
   // Si le stockage est indisponible, la page reste affichée : l'inscription indiquera l'erreur.
-  const counts = await masterclass.counts().catch((e) => {
+  let counts: Record<string, number> | null = null;
+  try {
+    counts = await masterclass.counts();
+  } catch (e) {
     console.error("[masterclass] page", e);
-    return null;
-  });
+  }
 
   return (
     <div className="page">

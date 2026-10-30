@@ -164,7 +164,8 @@ function backend(): Backend {
 }
 
 export const masterclass = {
-  counts: () => backend().counts(),
-  list: () => backend().list(),
-  register: (input: RegisterInput) => backend().register(input, findClass(input.classId)!.day),
+  // async : une configuration manquante devient un rejet de promesse (capturable), pas une exception synchrone.
+  counts: async () => backend().counts(),
+  list: async () => backend().list(),
+  register: async (input: RegisterInput) => backend().register(input, findClass(input.classId)!.day),
 };

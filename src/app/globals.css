@@ -82,6 +82,16 @@ a { color: inherit; }
 .nav ul { list-style: none; padding: 0; display: flex; gap: 4px 24px; }
 .nav ul a { display: inline-block; padding: 10px 0; color: var(--muted); text-decoration: none; font-size: .92rem; }
 .nav ul a:hover { color: #fff; }
+/* Bouton burger : visible uniquement sur mobile (voir @media plus bas) */
+.nav__burger { display: none; align-items: center; justify-content: center; width: 44px; height: 44px; padding: 0; border: 1px solid rgba(77, 255, 154, .5); background: rgba(77, 255, 154, .06); color: var(--green); cursor: pointer; }
+.nav__burger span, .nav__burger span::before, .nav__burger span::after { display: block; width: 20px; height: 2px; background: currentColor; transition: transform .25s, opacity .2s; }
+.nav__burger span { position: relative; }
+.nav__burger span::before, .nav__burger span::after { content: ""; position: absolute; left: 0; }
+.nav__burger span::before { top: -6px; }
+.nav__burger span::after { top: 6px; }
+.nav.is-open .nav__burger span { background: transparent; }
+.nav.is-open .nav__burger span::before { top: 0; transform: rotate(45deg); }
+.nav.is-open .nav__burger span::after { top: 0; transform: rotate(-45deg); }
 
 /* ---------- Buttons ---------- */
 .btn {
@@ -255,6 +265,15 @@ h2::after { content: ""; display: block; width: 72px; height: 3px; margin-top: 1
 @media (max-width: 860px) {
   .panels, .days, .cats, .reg, .team { grid-template-columns: minmax(0, 1fr); }
   .nav ul { display: none; }
+  .nav__in { gap: 10px; }
+  .nav__cta { margin-left: auto; }
+  .nav__burger { display: inline-flex; }
+  .nav.is-open ul {
+    display: flex; flex-direction: column; gap: 0; position: absolute; inset: 100% 0 auto 0; padding: 6px 16px 14px;
+    background: rgba(2, 19, 15, 0.97); border-bottom: 1px solid var(--line); box-shadow: 0 18px 36px rgba(0, 0, 0, .45);
+  }
+  .nav.is-open ul a { display: block; padding: 14px 0; font-size: 1.05rem; color: #fff; border-bottom: 1px solid rgba(110, 255, 190, .12); }
+  .nav.is-open ul li:last-child a { border-bottom: 0; }
   .mark { font-size: clamp(2.3rem, 11.4vw, 4.4rem); }
   .hero::before { background: linear-gradient(0deg, rgba(2, 19, 15, 0.94) 0%, rgba(2, 19, 15, 0.7) 52%, rgba(2, 19, 15, 0) 80%); }
   .steps { grid-template-columns: minmax(0, 1fr); gap: 26px 0; }
