@@ -28,7 +28,7 @@ export default function Programme() {
                 {d.slots.map(([time, label]) => (
                   <li key={time}>
                     <time>{time}</time>
-                    <span>{label}</span>
+                    <span>{label === "Master class" ? <a href="/masterclass">Master class : réserver sa place</a> : label}</span>
                   </li>
                 ))}
               </ul>

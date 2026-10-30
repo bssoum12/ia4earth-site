@@ -17,6 +17,7 @@ export const NAV = [
   { href: "#salon", label: "Le salon" },
   { href: "#panels", label: "Panels" },
   { href: "#programme", label: "Programme" },
+  { href: "/masterclass", label: "Master class" },
   { href: "#concours", label: "Concours" },
   { href: "#organisation", label: "Partenaires" },
 ];
@@ -140,19 +141,19 @@ export const DAYS = [
   {
     c: "cyan", title: "Jeudi 5 novembre",
     slots: [
-      ["08:30", "Accueil des participants"],
-      ["09:30", "Ouverture officielle"],
-      ["10:30", "Panels 1 et 2"],
-      ["14:30", "Rencontres B2B et exposition"],
+      ["09:00", "Séance d'ouverture officielle"],
+      ["10:00", "Conférence inaugurale, panel 1 : Données et souveraineté"],
+      ["12:00", "Master class"],
+      ["14:00", "Conférence 2, panel 2 : Eau, énergie et climat"],
     ],
   },
   {
     c: "green", title: "Vendredi 6 novembre",
     slots: [
-      ["09:30", "Panels 3 et 4"],
-      ["14:00", "Démonstrations et présentations de startups"],
-      ["16:00", "Remise des prix"],
-      ["17:00", "Clôture"],
+      ["10:00", "Panel 3 : Produire autrement"],
+      ["12:00", "Master class"],
+      ["14:00", "Conférence de clôture, panel 4 : De l'innovation à l'impact"],
+      ["17:00", "Séance de clôture officielle"],
     ],
   },
 ];
@@ -183,19 +184,116 @@ export const TEAM = [
   { slug: "razi-miliani", name: "Razi Miliani", role: "Ambassadeur de la 3e édition", bio: "Figure engagée de l'écosystème de l'Intelligence Artificielle en Tunisie" },
 ];
 
-export const PARTNERS = [
-  { c: "amber", name: "UGFS North Africa", kind: "Sponsor officiel" },
-  { c: "amber", name: "BTS Bank", kind: "Sponsor officiel" },
-  { c: "amber", name: "Nety", kind: "Sponsor officiel" },
-  { c: "cyan", name: "IRESA", kind: "Partenaire officiel" },
-  { c: "cyan", name: "ESSECT", kind: "Partenaire officiel" },
-  { c: "cyan", name: "ISAMM", kind: "Partenaire officiel" },
-  { c: "cyan", name: "ISG Tunis", kind: "Partenaire officiel" },
-  { c: "cyan", name: "flowup", kind: "Partenaire officiel" },
-  { c: "cyan", name: "Ayadi & Attia Law Firm", kind: "Partenaire officiel" },
-  { c: "green", name: "PEEUT, Université de Tunis", kind: "Partenaire stratégique" },
-  { c: "violet", name: "RCH International", kind: "Partenaire de savoir" },
-  { c: "magenta", name: "Le Point TN", kind: "Partenaire médiatique" },
+// Source : page « Sponsors et partenaires » du Programme Officiel (ordre et regroupement du document).
+export const PARTNER_TIERS = [
+  { id: "sponsors", c: "amber", label: "Sponsors" },
+  { id: "officiels", c: "cyan", label: "Partenaires officiels" },
+  { id: "medias", c: "magenta", label: "Partenaires médias" },
+] as const;
+
+export const PARTNERS: { tier: (typeof PARTNER_TIERS)[number]["id"]; name: string; logo: string }[] = [
+  { tier: "sponsors", name: "UGFS North Africa", logo: "ugfs-north-africa" },
+  { tier: "sponsors", name: "Nety", logo: "nety" },
+  { tier: "sponsors", name: "BTS Bank", logo: "bts-bank" },
+  { tier: "sponsors", name: "Autohall", logo: "autohall" },
+  { tier: "officiels", name: "RCH International", logo: "rch-international" },
+  { tier: "officiels", name: "UN-Habitat", logo: "un-habitat" },
+  { tier: "officiels", name: "ESEN, École Supérieure de l'Économie Numérique", logo: "esen" },
+  { tier: "officiels", name: "ISSBAT", logo: "issbat" },
+  { tier: "officiels", name: "ESSECT", logo: "essect" },
+  { tier: "officiels", name: "IHEC Sousse", logo: "ihec-sousse" },
+  { tier: "officiels", name: "Université de la Manouba", logo: "universite-manouba" },
+  { tier: "officiels", name: "IRESA", logo: "iresa" },
+  { tier: "officiels", name: "ISAMM", logo: "isamm" },
+  { tier: "officiels", name: "ESC Tunis", logo: "esc-tunis" },
+  { tier: "officiels", name: "PEEUT, Pôle Étudiant Entrepreneur de l'Université de Tunis", logo: "peeut" },
+  { tier: "officiels", name: "Chaire UNESCO, Université de la Manouba", logo: "unesco-chair-manouba" },
+  { tier: "officiels", name: "FSEGT", logo: "fsegt" },
+  { tier: "officiels", name: "ISG Tunis", logo: "isg-tunis" },
+  { tier: "officiels", name: "Inceptum", logo: "inceptum" },
+  { tier: "officiels", name: "Virtual Dev", logo: "virtual-dev" },
+  { tier: "officiels", name: "INRGREF", logo: "inrgref" },
+  { tier: "officiels", name: "Ayadi & Attia Law Firm", logo: "ayadi-attia" },
+  { tier: "officiels", name: "flowup", logo: "flowup" },
+  { tier: "officiels", name: "INAT", logo: "inat" },
+  { tier: "officiels", name: "IDC Innovative Display Concept", logo: "idc" },
+  { tier: "officiels", name: "Click2Read", logo: "click2read" },
+  { tier: "officiels", name: "MIP Imprimerie", logo: "mip-imprimerie" },
+  { tier: "officiels", name: "IRSET", logo: "irset" },
+  { tier: "medias", name: "Le Point TN", logo: "le-point-tn" },
+  { tier: "medias", name: "Télévision Tunisienne", logo: "television-tunisienne" },
+  { tier: "medias", name: "Business Talk", logo: "business-talk" },
+  { tier: "medias", name: "L'Expert", logo: "l-expert" },
+  { tier: "medias", name: "ilB", logo: "ilb" },
 ];
 
 export const PROFILES = ["Visiteur", "Exposant", "Startup", "Presse"];
+
+type Person = [name: string, role: string];
+
+// Source : « Programme Officiel du Salon », 5 et 6 novembre 2026.
+export const SPEAKERS: Record<number, { keynote?: Person; moderator: Person; panelists: Person[] }> = {
+  1: {
+    moderator: ["Me Fatma Attia", "Avocate associée, Ayadi & Attia Law Firm"],
+    panelists: [
+      ["Dr Oumaima Laifa", "CEO d'Euklydia France"],
+      ["Samiha Chaabani", "Experte senior en stratégie data et IA"],
+      ["Amine Chouaib", "Entrepreneur innovateur, PDG de Chifco Group"],
+      ["Hatem Mliki", "Expert en développement économique et gouvernance"],
+      ["Pr Najiba Mrabet Bellaaj", "Institut Supérieur d'Informatique, responsable qualité, coordinatrice PAQ DGSE RISE-ISI"],
+    ],
+  },
+  2: {
+    keynote: ["Dr Aida Robbana", "Cheffe de bureau, ONU-Habitat Tunisie"],
+    moderator: ["Dr Nadia Mansour", "Professeure à l'Université de Sousse, chercheuse invitée à l'Université de Salamanque (Espagne)"],
+    panelists: [
+      ["Dr Alix Willemez", "Experte en gouvernance climatique"],
+      ["Anis Oueslati", "Directeur général d'Auto Hall"],
+      ["Mohamed Hayouni", "Maître de conférences à l'ISI Kef"],
+      ["Saloua Languar", "Présidente de l'Institut de Responsabilité Sociétale des Entreprises en Tunisie (IRSET)"],
+      ["Nadia Abeoub", "Directrice de l'ESCT"],
+      ["Zeineb Kassouk", "Maître-assistante à l'INAT"],
+    ],
+  },
+  3: {
+    moderator: ["Pr Ahmed Snoussi", "Directeur général de l'École Supérieure des Industries Alimentaires de Tunis"],
+    panelists: [
+      ["Pr Mehdi Ben Mimoun", "Professeur à l'INAT"],
+      ["Pr Faten Khamessi", "Professeure à l'INAT"],
+      ["Asma Omri", "CEO et cofondatrice d'ARUMA"],
+      ["Dr Bilel Marzouki", "Maître assistant, École Nationale des Sciences de l'Informatique (ENSI)"],
+      ["Yasser Bououd", "Fondateur d'EZZAYRA"],
+    ],
+  },
+  4: {
+    moderator: ["Mohamed Agrebi", "Ancien ministre, consultant en investissement"],
+    panelists: [
+      ["Ahmed Karam", "Président du conseil d'administration de TLF"],
+      ["Mohamed Salah Fard", "DG d'UGFS North Africa"],
+      ["Hedia Mraihi", "Experte senior en finance durable, associée et directrice du conseil ESG chez Grant Thornton"],
+      ["Pr Olfa Kammoun", "Maître de conférences, experte en innovation et entrepreneuriat"],
+      ["Moneim Taieb", "Expert-comptable, président de l'AJECT"],
+    ],
+  },
+};
+
+/* Master class : source « Planning des masterclasses » (5 et 6 novembre 2026, 12h à 13h30). */
+export const MASTERCLASS_CAPACITY = 20;
+export const MASTERCLASS_TIME = "12h à 13h30";
+
+export const MASTERCLASS_DAYS = [
+  { day: 1, label: "Jeudi 5 novembre 2026", c: "cyan" },
+  { day: 2, label: "Vendredi 6 novembre 2026", c: "green" },
+] as const;
+
+export const MASTERCLASSES = [
+  { id: "j1-fondamentaux-ia", day: 1, title: "Les Fondamentaux IA", trainer: "Maram Yakoubi", org: "RCH International", logo: "rch-international" },
+  { id: "j1-automatisation-agents-ia", day: 1, title: "Automatisation & agents IA", trainer: "Ahmed Oueslati", org: "RCH International", logo: "rch-international" },
+  { id: "j1-prompt-engineering", day: 1, title: "Prompt engineering", trainer: "Atef Toumi", org: "RCH International", logo: "rch-international" },
+  { id: "j2-finance-islamique", day: 2, title: "Finance islamique", trainer: "Mohamed Salah Frad", org: "UGFS North Africa", logo: "ugfs-north-africa" },
+  { id: "j2-ia-et-ethiques", day: 2, title: "IA et éthiques", trainer: "Fatma Attia", org: "Ayadi & Attia Law Firm", logo: "ayadi-attia" },
+  { id: "j2-entreprise-intelligente", day: 2, title: "De l'entreprise digitale à l'entreprise intelligente", trainer: "Bassem Thabti", org: "Virtual Dev", logo: "virtual-dev" },
+  { id: "j2-ia-business-donnees", day: 2, title: "IA pour le business & l'analyse des données", trainer: "Maram Yakoubi", org: "RCH International", logo: "rch-international" },
+  { id: "j2-ia-productivite", day: 2, title: "IA pour la productivité", trainer: "Yesmine Khlifa", org: "RCH International", logo: "rch-international" },
+  { id: "j2-creation-contenu-ia", day: 2, title: "Création de contenu IA", trainer: "Atef Toumi", org: "RCH International", logo: "rch-international" },
+] as const;

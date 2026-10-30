@@ -1,11 +1,11 @@
 import Logo from "./Logo";
 import Social from "./Social";
 
-export default function Footer() {
+export default function Footer({ base = "" }: { base?: string }) {
   return (
     <footer className="foot">
       <div className="wrap foot__row">
-        <a className="brand" href="#top">
+        <a className="brand" href={`${base}#top`}>
           <Logo />
           IA4EARTH
         </a>
