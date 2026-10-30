@@ -97,6 +97,7 @@ export default function AdminClient({ initial }: { initial: Participant[] }) {
           </p>
         </div>
         <div className="adm-actions">
+          <a className="adm-btn" href="/admin/masterclass">Master class</a>
           <a className="adm-btn" href="/api/admin/export">Exporter en CSV</a>
           <button className="adm-btn" onClick={logout}>Se déconnecter</button>
         </div>

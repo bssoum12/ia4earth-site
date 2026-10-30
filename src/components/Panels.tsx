@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { PANELS, THEMES } from "@/lib/content";
+import { PANELS, SPEAKERS, THEMES } from "@/lib/content";
 
 /** Inclinaison 3D au survol (désactivée si prefers-reduced-motion ou sans survol). */
 function useTilt(ref: React.RefObject<HTMLElement>) {
@@ -76,6 +76,16 @@ export default function Panels() {
                   <p>{p.more.outro}</p>
                 </div>
               </details>
+              {SPEAKERS[p.n] && (
+                <div className="speakers">
+                  <h4>Intervenants</h4>
+                  <ul>
+                    {SPEAKERS[p.n].keynote && <li><b>Keynote</b><span>{SPEAKERS[p.n].keynote![0]}</span><em>{SPEAKERS[p.n].keynote![1]}</em></li>}
+                    <li><b>Modération</b><span>{SPEAKERS[p.n].moderator[0]}</span><em>{SPEAKERS[p.n].moderator[1]}</em></li>
+                    {SPEAKERS[p.n].panelists.map(([name, role]) => <li key={name}><b>Panéliste</b><span>{name}</span><em>{role}</em></li>)}
+                  </ul>
+                </div>
+              )}
             </article>
           ))}
         </div>

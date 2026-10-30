@@ -1,32 +1,7 @@
 import Image from "next/image";
-import { PARTNERS, TEAM } from "@/lib/content";
-
-type Partner = (typeof PARTNERS)[number];
-
-/** Bande défilante : le contenu est doublé pour une boucle continue (copie masquée aux lecteurs d'écran). */
-function Marquee({ items, reverse, label }: { items: Partner[]; reverse?: boolean; label: string }) {
-  const half = [...items, ...items];
-  return (
-    <div className={`marquee${reverse ? " marquee--rev" : ""}`} role="group" aria-label={label}>
-      <ul className="marquee__track">
-        {[...half, ...half].map((p, i) => (
-          <li
-            key={i}
-            className={i >= items.length ? "dup" : undefined}
-            aria-hidden={i >= items.length ? true : undefined}
-            style={{ "--c": `var(--${p.c})` } as React.CSSProperties}
-          >
-            <b>{p.name}</b>
-            <span>{p.kind}</span>
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
-}
+import { PARTNER_TIERS, PARTNERS, TEAM } from "@/lib/content";
 
 export default function Organisation() {
-  const half = Math.ceil(PARTNERS.length / 2);
   return (
     <section className="sec" id="organisation">
       <div className="wrap">
@@ -63,9 +38,26 @@ export default function Organisation() {
       <div className="wrap">
         <h3 className="sub" data-rv>Sponsors et <span className="red">partenaires</span></h3>
       </div>
-      {/* Pleine largeur : deux bandes en sens opposés (remplacées par les logos dès qu'ils sont fournis) */}
-      <Marquee items={PARTNERS.slice(0, half)} label="Sponsors et partenaires, première liste" />
-      <Marquee items={PARTNERS.slice(half)} reverse label="Sponsors et partenaires, seconde liste" />
+      <div className="wrap">
+        {PARTNER_TIERS.map((t) => (
+          <div key={t.id} className="ptier" style={{ "--c": `var(--${t.c})` } as React.CSSProperties}>
+            <h4 data-rv>{t.label}</h4>
+            <ul className={`plogos plogos--${t.id}`}>
+              {PARTNERS.filter((p) => p.tier === t.id).map((p) => (
+                <li key={p.logo} data-rv>
+                  <Image src={`/partners/${p.logo}.png`} alt={p.name} width={260} height={130} sizes="(max-width: 600px) 40vw, 180px" />
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+        <div className="ptier ptier--org" style={{ "--c": "var(--green)" } as React.CSSProperties}>
+          <h4 data-rv>Organisé par</h4>
+          <ul className="plogos plogos--org">
+            <li data-rv><Image src="/partners/neo-influence.png" alt="Neo Influence, Influence differently" width={260} height={70} sizes="260px" /></li>
+          </ul>
+        </div>
+      </div>
     </section>
   );
 }
