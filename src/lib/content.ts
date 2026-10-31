@@ -13,6 +13,9 @@ export const SITE = {
   end: "2026-11-07T00:00:00+01:00",
 } as const;
 
+/** Programme officiel du salon (PDF servi depuis /public). */
+export const PROGRAMME_PDF = { href: "/programme-officiel-ia4earth-2026.pdf", label: "Télécharger le programme officiel (PDF)" } as const;
+
 export const NAV = [
   { href: "#salon", label: "Le salon" },
   { href: "#panels", label: "Panels" },

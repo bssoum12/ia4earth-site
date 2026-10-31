@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { parseParticipant, participants } from "@/lib/participants";
+import { sendSalonConfirmation } from "@/lib/salonMail";
 
 export const runtime = "nodejs";
 
@@ -61,6 +62,9 @@ export async function POST(req: Request) {
       console.error("[register] Resend", e);
     }
   }
+
+  // Confirmation à l'inscrit, avec le lien du programme PDF : facultative, n'empêche jamais l'inscription.
+  if (stored || emailed) await sendSalonConfirmation(p);
 
   if (!stored && !emailed) {
     return NextResponse.json(
