@@ -83,6 +83,10 @@ a { color: inherit; }
 .nav__in { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 60px; }
 .brand { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; font: 800 1.05rem var(--font-display); color: #fff; }
 .brand svg { color: var(--green); flex: none; }
+.brand__logo { display: block; width: auto; height: 46px; flex: none; }
+.brand__name { display: none; padding-left: 12px; border-left: 1px solid var(--line); }
+@media (min-width: 1180px) { .brand__name { display: inline-block; } }
+@media (max-width: 860px) { .brand__logo { height: 36px; } }
 .logo-dot { fill: var(--cyan); }
 .nav ul { list-style: none; padding: 0; display: flex; gap: 4px 24px; }
 .nav ul a { display: inline-block; padding: 10px 0; color: var(--muted); text-decoration: none; font-size: .92rem; }
