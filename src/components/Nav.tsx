@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import { NAV } from "@/lib/content";
-import Logo from "./Logo";
 
 /** `base` : "/" quand la barre est affichée hors de la page d'accueil (les ancres pointent alors vers l'accueil). */
 export default function Nav({ base = "" }: { base?: string }) {
@@ -19,8 +19,16 @@ export default function Nav({ base = "" }: { base?: string }) {
     <header className={`nav${open ? " is-open" : ""}`}>
       <div className="wrap nav__in">
         <a className="brand" href={`${base}#top`} onClick={() => setOpen(false)}>
-          <Logo />
-          IA4EARTH
+          <Image
+            className="brand__logo"
+            src="/logo-salon-clair.png"
+            alt="Salon de l'économie verte, finance responsable et développement durable"
+            width={520}
+            height={130}
+            priority
+            sizes="184px"
+          />
+          <span className="brand__name">IA4EARTH</span>
         </a>
         <nav aria-label="Navigation principale">
           <ul id="nav-menu">
