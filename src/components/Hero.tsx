@@ -1,11 +1,11 @@
 import Countdown from "./Countdown";
 
 const WORD = "IA4EARTH";
-const FROM = [45, 232, 208]; // turquoise
-const MID = [109, 255, 138]; // vert
-const TO = [212, 255, 94]; // citron
+const FROM = [35, 171, 182]; // turquoise
+const MID = [167, 255, 131]; // vert lumineux
+const TO = [229, 244, 239]; // vert pastel
 
-/** Couleur de chaque lettre sur le dégradé turquoise → vert → citron. */
+/** Couleur de chaque lettre sur le dégradé turquoise → vert lumineux → vert pastel. */
 function letterColor(i: number, n: number) {
   const t = i / (n - 1);
   const [a, b, u] = t < 0.55 ? [FROM, MID, t / 0.55] : [MID, TO, (t - 0.55) / 0.45];
