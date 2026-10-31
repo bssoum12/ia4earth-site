@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useState } from "react";
 import { MASTERCLASSES, MASTERCLASS_DAYS, MASTERCLASS_TIME, PROGRAMME_PDF } from "@/lib/content";
+import Turnstile, { TURNSTILE_FIELD, TURNSTILE_SITE_KEY } from "./Turnstile";
 
 type Counts = Record<string, number>;
 type Status = { kind: "idle" } | { kind: "sending" } | { kind: "ok" | "error"; msg: string };
@@ -11,6 +12,7 @@ export default function MasterclassList({ initialCounts, capacity }: { initialCo
   const [counts, setCounts] = useState<Counts | null>(initialCounts);
   const [openId, setOpenId] = useState<string | null>(null);
   const [status, setStatus] = useState<Record<string, Status>>({});
+  const [tsReset, setTsReset] = useState(0);
 
   const setOne = (id: string, s: Status) => setStatus((prev) => ({ ...prev, [id]: s }));
 
@@ -21,8 +23,12 @@ export default function MasterclassList({ initialCounts, capacity }: { initialCo
       form.reportValidity();
       return;
     }
-    setOne(classId, { kind: "sending" });
     const data = { ...Object.fromEntries(new FormData(form).entries()), classId };
+    if (TURNSTILE_SITE_KEY && !(data as Record<string, unknown>)[TURNSTILE_FIELD]) {
+      setOne(classId, { kind: "error", msg: "La vérification anti-robot est en cours : patientez un instant, puis réessayez." });
+      return;
+    }
+    setOne(classId, { kind: "sending" });
     try {
       const res = await fetch("/api/masterclass", {
         method: "POST",
@@ -40,6 +46,8 @@ export default function MasterclassList({ initialCounts, capacity }: { initialCo
       }
     } catch {
       setOne(classId, { kind: "error", msg: "Connexion impossible. Réessayez ou écrivez-nous." });
+    } finally {
+      setTsReset((n) => n + 1); // un jeton Turnstile ne sert qu'une fois
     }
   }
 
@@ -117,6 +125,7 @@ export default function MasterclassList({ initialCounts, capacity }: { initialCo
                         <input id={`c-${m.id}`} name="consentement" type="checkbox" required />
                         <span>J&apos;accepte d&apos;être contacté(e) par l&apos;équipe du salon au sujet de cette master class.</span>
                       </label>
+                      <Turnstile resetSignal={tsReset} />
                       <button className="btn btn--glow" type="submit" disabled={st.kind === "sending"}>
                         {st.kind === "sending" ? "Envoi en cours…" : "Réserver ma place"}
                       </button>

@@ -24,6 +24,9 @@ Liste des participants (inscriptions du site + saisie manuelle), recherche, filt
 - **Stockage** : en production, Supabase (exécuter `supabase/schema.sql`, puis définir `SUPABASE_URL` et `SUPABASE_SERVICE_ROLE_KEY`). Sans ces variables, un fichier local `.data/participants.json` est utilisé : développement uniquement (le disque Vercel est éphémère).
 - **Badge** : maquette provisoire (90 × 130 mm) dans `src/components/admin/BadgeCard.tsx` ; la taille d'impression est dans `@page` de `src/app/admin/admin.css`. À remplacer avec la maquette définitive.
 
+## Anti-robot (Cloudflare Turnstile)
+Les formulaires du salon (`/api/register`) et des master class (`/api/masterclass`) sont protégés par Turnstile : le widget (`src/components/Turnstile.tsx`) ajoute un jeton au formulaire, et le serveur le valide auprès de Cloudflare (`src/lib/turnstile.ts`) avant toute inscription. Variables : `NEXT_PUBLIC_TURNSTILE_SITE_KEY` (publique, lue à la compilation : redéployer après l'avoir ajoutée) et `TURNSTILE_SECRET_KEY`. Sans `TURNSTILE_SECRET_KEY`, la vérification est désactivée. Dans Cloudflare, déclarer les domaines du site (et `*.vercel.app` pour tester les aperçus). Clés de test Cloudflare : site `1x00000000000000000000AA` / secret `1x0000000000000000000000000000000AA` (acceptent tout) ; secret `2x0000000000000000000000000000000AA` (refuse tout). Le champ piège `website` reste en place.
+
 ## Programme PDF
 Le programme officiel est servi depuis `public/programme-officiel-ia4earth-2026.pdf` (constante `PROGRAMME_PDF` dans `src/lib/content.ts`). Un bouton de téléchargement apparaît après une inscription (salon ou master class), et le lien figure dans les e-mails de confirmation (`src/lib/salonMail.ts`, `src/lib/masterclassMail.ts`, envoi via `src/lib/mail.ts`). Pour mettre à jour le programme, remplacer le fichier PDF en gardant le même nom.
 

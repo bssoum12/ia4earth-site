@@ -3,11 +3,13 @@
 import { useState } from "react";
 import { PROFILES, PROGRAMME_PDF, SITE } from "@/lib/content";
 import Social from "./Social";
+import Turnstile, { TURNSTILE_FIELD, TURNSTILE_SITE_KEY } from "./Turnstile";
 
 type State = { kind: "idle" } | { kind: "sending" } | { kind: "ok" | "error"; msg: string };
 
 export default function Inscription() {
   const [state, setState] = useState<State>({ kind: "idle" });
+  const [tsReset, setTsReset] = useState(0);
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -16,8 +18,12 @@ export default function Inscription() {
       form.reportValidity();
       return;
     }
-    setState({ kind: "sending" });
     const data = Object.fromEntries(new FormData(form).entries());
+    if (TURNSTILE_SITE_KEY && !data[TURNSTILE_FIELD]) {
+      setState({ kind: "error", msg: "La vérification anti-robot est en cours : patientez un instant, puis réessayez." });
+      return;
+    }
+    setState({ kind: "sending" });
     try {
       const res = await fetch("/api/register", {
         method: "POST",
@@ -33,6 +39,8 @@ export default function Inscription() {
       }
     } catch {
       setState({ kind: "error", msg: "Connexion impossible. Réessayez ou écrivez-nous directement." });
+    } finally {
+      setTsReset((n) => n + 1); // un jeton Turnstile ne sert qu'une fois
     }
   }
 
@@ -74,6 +82,7 @@ export default function Inscription() {
               <input id="f-ok" name="consentement" type="checkbox" required />
               <span>J&apos;accepte d&apos;être contacté par l&apos;équipe du salon au sujet de l&apos;événement.</span>
             </label>
+            <Turnstile lazy resetSignal={tsReset} />
             <div>
               <button className="btn btn--glow" type="submit" disabled={state.kind === "sending"}>
                 {state.kind === "sending" ? "Envoi en cours…" : "Envoyer ma demande"}
