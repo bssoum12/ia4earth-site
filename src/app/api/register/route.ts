@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { parseParticipant, participants } from "@/lib/participants";
 import { sendSalonConfirmation } from "@/lib/salonMail";
+import { TURNSTILE_ERROR, TURNSTILE_FIELD, verifyTurnstile } from "@/lib/turnstile";
 
 export const runtime = "nodejs";
 
@@ -31,6 +32,9 @@ export async function POST(req: Request) {
   const parsed = parseParticipant(body, { source: "site" });
   if (!parsed.ok || !consent) {
     return NextResponse.json({ message: "Merci de renseigner tous les champs obligatoires." }, { status: 422 });
+  }
+  if (!(await verifyTurnstile(body[TURNSTILE_FIELD], req))) {
+    return NextResponse.json({ message: TURNSTILE_ERROR }, { status: 403 });
   }
   const p = parsed.value;
 

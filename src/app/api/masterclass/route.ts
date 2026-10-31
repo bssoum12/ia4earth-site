@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { MASTERCLASS_CAPACITY } from "@/lib/content";
 import { masterclass, parseRegistration } from "@/lib/masterclass";
 import { sendMasterclassConfirmation } from "@/lib/masterclassMail";
+import { TURNSTILE_ERROR, TURNSTILE_FIELD, verifyTurnstile } from "@/lib/turnstile";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -32,6 +33,9 @@ export async function POST(req: Request) {
   const parsed = parseRegistration(body);
   if (!parsed.ok || !consent) {
     return NextResponse.json({ message: parsed.ok ? "Merci de cocher la case de consentement." : parsed.error }, { status: 422 });
+  }
+  if (!(await verifyTurnstile(body[TURNSTILE_FIELD], req))) {
+    return NextResponse.json({ message: TURNSTILE_ERROR }, { status: 403 });
   }
 
   try {

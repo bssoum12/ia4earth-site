@@ -344,3 +344,6 @@ h2::after { content: ""; display: block; width: 72px; height: 3px; margin-top: 1
 .mc-form { margin-top: 4px; }
 .mc-status { margin: 0; font-size: .92rem; }
 .mc-status.is-error { color: #ff6b85; }
+
+/* Cloudflare Turnstile : espace réservé pour éviter un saut de mise en page quand le widget apparaît */
+.turnstile { min-height: 65px; }
