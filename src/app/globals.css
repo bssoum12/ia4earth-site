@@ -249,6 +249,7 @@ h2::after { content: ""; display: block; width: 72px; height: 3px; margin-top: 1
 .check input { width: 20px; height: 20px; margin-top: 3px; flex: none; accent-color: var(--green); }
 .status { padding: 12px 14px; border-left: 4px solid var(--amber); background: rgba(255, 185, 56, 0.12); border-radius: 0 4px 4px 0; }
 .info { display: grid; gap: 20px; align-content: start; }
+.info__list { display: grid; gap: 20px; }
 .info dt { font-weight: 600; }
 .info dd { color: var(--muted); }
 .info .links { display: flex; flex-wrap: wrap; gap: 12px; }

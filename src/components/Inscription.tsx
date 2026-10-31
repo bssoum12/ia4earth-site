@@ -87,7 +87,8 @@ export default function Inscription() {
             )}
           </form>
 
-          <dl className="info">
+          <div className="info">
+          <dl className="info__list">
             <div><dt>Dates</dt><dd>Jeudi 5 et vendredi 6 novembre 2026</dd></div>
             <div><dt>Lieu</dt><dd>Centre International des Congrès, siège de l&apos;UTICA, Tunis</dd></div>
             <div>
@@ -106,11 +107,12 @@ export default function Inscription() {
               </dd>
             </div>
             <div><dt>Suivez le salon</dt><dd><Social /></dd></div>
+          </dl>
             <div className="links">
               <a className="btn btn--ghost" href="https://www.google.com/maps/search/?api=1&query=UTICA+Rue+Ferjani+Belhaj+Ammar+4+1003+Tunis" target="_blank" rel="noopener">Ouvrir dans Google Maps</a>
               <a className="btn btn--ghost" href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Salon+IA4EARTH+2026&dates=20261105/20261107&details=Innover+pour+un+monde+durable&location=Centre+International+des+Congr%C3%A8s%2C+UTICA%2C+Tunis" target="_blank" rel="noopener">Ajouter à Google Agenda</a>
             </div>
-          </dl>
+          </div>
         </div>
       </div>
     </section>
