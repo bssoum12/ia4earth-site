@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Noto_Kufi_Arabic, Sora, Unbounded } from "next/font/google";
+import { Analytics } from "@vercel/analytics/react";
 import "./globals.css";
 import "./effects.css";
 import "./mobile.css";
@@ -60,6 +61,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="fr" className={`${unbounded.variable} ${sora.variable} ${kufi.variable}`}>
       <body>
         {children}
+        <Analytics />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(JSON_LD) }} />
       </body>
     </html>
