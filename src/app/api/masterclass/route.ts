@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { MASTERCLASS_CAPACITY } from "@/lib/content";
 import { masterclass, parseRegistration } from "@/lib/masterclass";
+import { sendMasterclassConfirmation } from "@/lib/masterclassMail";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -38,7 +39,11 @@ export async function POST(req: Request) {
     const counts = await masterclass.counts().catch(() => null);
     const payload = { counts, capacity: MASTERCLASS_CAPACITY };
     if (result === "ok") {
-      return NextResponse.json({ ...payload, message: "Votre place est réservée. Rendez-vous à la master class, de 12h à 13h30 !" });
+      const emailed = await sendMasterclassConfirmation(parsed.value);
+      const message = emailed
+        ? "Votre place est réservée. Un e-mail de confirmation vient de vous être envoyé (pensez à vérifier vos courriers indésirables)."
+        : "Votre place est réservée. Rendez-vous à la master class, de 12h à 13h30 !";
+      return NextResponse.json({ ...payload, message, emailed });
     }
     const message = {
       full: "Cette master class est complète : les 20 places sont prises.",

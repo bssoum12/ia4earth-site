@@ -27,6 +27,7 @@ Liste des participants (inscriptions du site + saisie manuelle), recherche, filt
 ## Master class (/masterclass)
 Neuf master class (3 le jeudi, 6 le vendredi, 12h à 13h30) définies dans `MASTERCLASSES` (`src/lib/content.ts`). Inscription en ligne par master class via `POST /api/masterclass` : **20 places maximum** (`MASTERCLASS_CAPACITY`), le bouton passe sur « Complet » et l'API refuse (409) dès que la limite est atteinte. Une personne (e-mail) ne peut s'inscrire qu'à une master class par jour, car elles ont lieu en parallèle.
 - **Stockage** : même règle que les participants. En production, exécuter la partie « Master class » de `supabase/schema.sql` (table et fonction `register_masterclass`, qui verrouille et compte de façon atomique) ; en développement, fichier `.data/masterclass.json`.
+- **E-mail de confirmation** : envoyé à l'inscrit via Resend (`src/lib/masterclassMail.ts`) avec `RESEND_API_KEY` et `REGISTRATION_FROM_EMAIL` (domaine vérifié chez Resend). Sans ces variables, l'inscription est quand même enregistrée, sans e-mail.
 - **Administration** : `/admin/masterclass` liste les inscrits par master class (lien depuis `/admin`).
 
 ## À compléter plus tard
