@@ -17,26 +17,26 @@
 /* ---------- Globe : étiquettes, bouton de retour ---------- */
 .city-label {
   position: fixed; left: 0; top: 0; z-index: 0; pointer-events: none; opacity: 0; will-change: transform, opacity;
-  padding: 2px 8px; border: 1px solid rgba(77, 255, 154, .35); border-radius: 3px; background: rgba(2, 24, 18, .62);
+  padding: 2px 8px; border: 1px solid rgba(167, 255, 131, .35); border-radius: 3px; background: rgba(5, 38, 32, .62);
   font: 500 .72rem/1.4 var(--font-body); letter-spacing: .04em; color: #c8ffe0; white-space: nowrap;
   transition: color .2s, border-color .2s, box-shadow .2s;
 }
-.city-label.on { color: #fff; border-color: var(--green); box-shadow: 0 0 16px rgba(77, 255, 154, .55); font-weight: 600; }
+.city-label.on { color: #fff; border-color: var(--green); box-shadow: 0 0 16px rgba(167, 255, 131, .55); font-weight: 600; }
 .globe-reset {
   position: fixed; right: 20px; bottom: 20px; z-index: 30; min-height: 40px; padding: 0 18px; border-radius: 6px; cursor: pointer;
-  border: 1px solid rgba(77, 255, 154, .65); background: rgba(2, 24, 18, .78); color: var(--green); font: 600 .9rem var(--font-body);
+  border: 1px solid rgba(167, 255, 131, .65); background: rgba(5, 38, 32, .78); color: var(--green); font: 600 .9rem var(--font-body);
   backdrop-filter: blur(8px); opacity: 0; pointer-events: none; transform: translateY(8px); transition: opacity .3s, transform .3s, background .2s;
 }
 .globe-reset.show { opacity: 1; pointer-events: auto; transform: none; }
-.globe-reset:hover { background: rgba(77, 255, 154, .16); }
+.globe-reset:hover { background: rgba(167, 255, 131, .16); }
 
 /* ---------- Halo curseur, boutons magnétiques ---------- */
 .halo {
   position: fixed; left: 0; top: 0; z-index: 3; width: 360px; height: 360px; border-radius: 50%; pointer-events: none; opacity: 0;
-  background: radial-gradient(closest-side, rgba(77, 255, 154, .15), transparent); mix-blend-mode: screen; transition: opacity .4s; will-change: transform;
+  background: radial-gradient(closest-side, rgba(167, 255, 131, .15), transparent); mix-blend-mode: screen; transition: opacity .4s; will-change: transform;
 }
 .halo.on { opacity: 1; }
-.halo.hot { background: radial-gradient(closest-side, rgba(45, 232, 208, .24), transparent); }
+.halo.hot { background: radial-gradient(closest-side, rgba(35, 171, 182, .24), transparent); }
 .btn { transition: transform .25s cubic-bezier(.2, .8, .2, 1), filter .2s, box-shadow .2s, background .2s; }
 
 /* ---------- Apparition au scroll (activée par le composant Effects) ---------- */
@@ -146,7 +146,7 @@ body::after {
 main > .sec:nth-child(even) { clip-path: polygon(0 0, 100% var(--cut), 100% 100%, 0 100%); }
 .sec::before {
   content: ""; position: absolute; inset: 0; pointer-events: none;
-  background-image: linear-gradient(rgba(77, 255, 154, .045) 1px, transparent 1px), linear-gradient(90deg, rgba(77, 255, 154, .045) 1px, transparent 1px);
+  background-image: linear-gradient(rgba(167, 255, 131, .045) 1px, transparent 1px), linear-gradient(90deg, rgba(167, 255, 131, .045) 1px, transparent 1px);
   background-size: 64px 64px;
   -webkit-mask-image: radial-gradient(ellipse 80% 70% at 50% 0%, #000, transparent 80%);
   mask-image: radial-gradient(ellipse 80% 70% at 50% 0%, #000, transparent 80%);
@@ -188,8 +188,8 @@ main > .sec:nth-child(even) { clip-path: polygon(0 0, 100% var(--cut), 100% 100%
 
 /* ---------- Réseaux sociaux ---------- */
 .social { list-style: none; margin: 0; padding: 0; display: flex; gap: 10px; }
-.social a { display: grid; place-items: center; width: 44px; height: 44px; border: 1px solid rgba(77, 255, 154, .5); border-radius: 6px; color: var(--green); transition: background .2s, color .2s, box-shadow .2s; }
-.social a:hover { background: rgba(77, 255, 154, .15); color: #fff; box-shadow: 0 0 16px rgba(77, 255, 154, .4); }
+.social a { display: grid; place-items: center; width: 44px; height: 44px; border: 1px solid rgba(167, 255, 131, .5); border-radius: 6px; color: var(--green); transition: background .2s, color .2s, box-shadow .2s; }
+.social a:hover { background: rgba(167, 255, 131, .15); color: #fff; box-shadow: 0 0 16px rgba(167, 255, 131, .4); }
 .info dd a { color: var(--green); text-underline-offset: 3px; }
 .info dd a:hover { color: #fff; }
 .chips.access { margin-top: 4px; }

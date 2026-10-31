@@ -11,7 +11,7 @@ Les photos des membres sont intégrées en base64 : à extraire en fichiers (`/p
 ## Direction de design (décidée avec le client)
 - Futuriste, couleurs vives, animations 3D, esprit IA, thème environnement durable.
 - Hero : Terre 3D plein écran, continents en points verts, nuages, arcs « réseau IA », balayage lumineux, balise ambre pulsante sur Tunis (36,8065 N ; 10,1815 E), étiquette « Tunis » qui suit le point.
-- Palette : fond #02130f, vert #4dff9a, turquoise #2de8d0, citron #c8ff5a, ambre #ffb938 (Tunis), rouge #ff3355 / #c4123a en accent ponctuel (coup de pinceau « 3e édition », mots clés des titres, urgence).
+- Palette (charte de la graphiste) : fond vert profond #062b24, texte blanc cassé #f4f8f6, vert lumineux #a7ff83 (accent), turquoise #23abb6, vert principal du logo #1b8e6d, olive #6e9836, bleu clair #b6cce4, vert pastel #e5f4ef, gris #636164 ; ambre #ffb938 (Tunis) et rouge #ff3355 / #c4123a conservés en accent ponctuel (coup de pinceau « 3e édition », mots clés des titres, urgence). Jetons dans `src/app/globals.css` (`:root`), couleurs du globe dans `src/components/globe/`.
 - Polices : Unbounded (titres), Sora (texte), Noto Kufi Arabic.
 - Équité dans la section Organisation : cartes identiques pour tous, ordre de l'affiche officielle.
 - `prefers-reduced-motion` respecté ; globe de repli si WebGL indisponible.

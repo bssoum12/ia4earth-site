@@ -22,14 +22,14 @@ void main() {
   float grid = max(g1, g2) * (0.35 + 0.65 * fr);
   float d = (lat - uScan) * 10.0;
   float sc = exp(-d * d);
-  vec3 deep = vec3(0.004, 0.050, 0.075);
-  vec3 mid = vec3(0.010, 0.130, 0.190);
+  vec3 deep = vec3(0.010, 0.075, 0.075);
+  vec3 mid = vec3(0.020, 0.150, 0.150);
   vec3 col = mix(deep, mid, 0.5 + 0.5 * p.y);
-  col += fr * vec3(0.10, 0.85, 0.65);
-  col += grid * vec3(0.10, 0.80, 0.55) * 0.5;
-  col += sc * vec3(0.30, 1.00, 0.55) * 0.35;
+  col += fr * vec3(0.14, 0.67, 0.71);
+  col += grid * vec3(0.14, 0.67, 0.71) * 0.5;
+  col += sc * vec3(0.65, 1.00, 0.51) * 0.35;
   float lt = max(0.0, dot(n, normalize(vec3(0.6, 0.5, 0.6))));
-  col += pow(lt, 3.0) * vec3(0.20, 0.75, 0.50) * 0.45;
+  col += pow(lt, 3.0) * vec3(0.11, 0.56, 0.43) * 0.45;
   gl_FragColor = vec4(col, 1.0);
 }`;
 
@@ -43,10 +43,10 @@ export const fsAtmo = `varying vec3 vN;
 void main() {
   float i = pow(max(0.72 - dot(vN, vec3(0.0, 0.0, 1.0)), 0.0), 2.5);
   float sun = max(dot(vN, normalize(vec3(0.6, 0.5, 0.6))), 0.0);
-  vec3 low = vec3(0.10, 1.00, 0.55);
-  vec3 high = vec3(0.10, 0.80, 1.00);
+  vec3 low = vec3(0.11, 0.56, 0.43);
+  vec3 high = vec3(0.14, 0.67, 0.71);
   vec3 c = mix(low, high, clamp(0.5 + 0.7 * vN.y, 0.0, 1.0));
-  c = mix(c, vec3(0.75, 1.00, 0.55), sun * 0.55);
+  c = mix(c, vec3(0.65, 1.00, 0.51), sun * 0.55);
   float k = i * (0.55 + 0.6 * sun);
   gl_FragColor = vec4(c * k, k);
 }`;

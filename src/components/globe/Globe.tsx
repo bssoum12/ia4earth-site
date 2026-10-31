@@ -109,16 +109,16 @@ export default function Globe({ onFail }: { onFail: () => void }) {
         const t = 0.5 + 0.5 * Math.sin(lon * 0.045 + lat * 0.07);
         const hot = Math.random() > 0.972;
         const br = hot ? 1.0 : 0.55 + 0.45 * Math.random();
-        const cr = hot ? 0.95 : 0.35 * (1 - t) + 0.12 * t;
-        const cg = hot ? 1.0 : 1.0 * (1 - t) + 0.85 * t;
-        const cb = hot ? 0.45 : 0.25 * (1 - t) + 0.55 * t;
+        const cr = hot ? 0.9 : 0.65 * (1 - t) + 0.14 * t;
+        const cg = hot ? 1.0 : 1.0 * (1 - t) + 0.67 * t;
+        const cb = hot ? 0.8 : 0.51 * (1 - t) + 0.71 * t;
         lp.push(x * 1.003, y * 1.003, z * 1.003);
         lc.push(cr * br, cg * br, cb * br);
         ls.push(Math.random());
         lz.push(hot ? 1.9 : 0.95 + 0.25 * Math.random());
       } else if (i % seaStep === 0) {
         op.push(x * 1.002, y * 1.002, z * 1.002);
-        oc.push(0.06, 0.38, 0.45);
+        oc.push(0.07, 0.34, 0.36);
         os.push(Math.random());
         oz.push(0.55);
       }
@@ -139,7 +139,7 @@ export default function Globe({ onFail }: { onFail: () => void }) {
       const n = Math.sin(cxx * 5.1 + cy * 3.3) * Math.sin(czz * 4.7 - cy * 2.1) + Math.sin(cxx * 11 + czz * 9) * 0.35;
       if (n < 0.42) continue;
       cloudP.push(cxx * 1.035, cy * 1.035, czz * 1.035);
-      cloudC.push(0.75, 1.0, 0.9);
+      cloudC.push(0.9, 0.96, 0.94);
       cloudS.push(Math.random());
       cloudZ.push(0.9);
     }
@@ -154,7 +154,7 @@ export default function Globe({ onFail }: { onFail: () => void }) {
         .normalize()
         .multiplyScalar(1.12 + Math.random() * 0.9);
       ffP.push(fv.x, fv.y, fv.z);
-      ffC.push(0.7, 1.0, 0.3);
+      ffC.push(0.65, 1.0, 0.51);
       ffS.push(Math.random());
       ffZ.push(1.6 + Math.random());
     }
@@ -168,7 +168,7 @@ export default function Globe({ onFail }: { onFail: () => void }) {
     /* Anneau de balayage IA */
     const scanRing = new THREE.Mesh(
       track(new THREE.TorusGeometry(1, 0.003, 6, 180)),
-      track(new THREE.MeshBasicMaterial({ color: 0x6dff8a, transparent: true, opacity: 0.8, blending: THREE.AdditiveBlending, depthWrite: false })),
+      track(new THREE.MeshBasicMaterial({ color: 0xa7ff83, transparent: true, opacity: 0.8, blending: THREE.AdditiveBlending, depthWrite: false })),
     );
     scanRing.rotation.x = Math.PI / 2;
     globe.add(scanRing);
@@ -244,9 +244,9 @@ export default function Globe({ onFail }: { onFail: () => void }) {
       return a.clone().multiplyScalar(Math.sin((1 - t) * ang) / s).add(b.clone().multiplyScalar(Math.sin(t * ang) / s));
     }
     const PAL: [THREE.Color, THREE.Color][] = [
-      [new THREE.Color(0.8, 1.0, 0.25), new THREE.Color(0.15, 0.95, 0.85)],
-      [new THREE.Color(0.3, 1.0, 0.55), new THREE.Color(0.15, 0.8, 1.0)],
-      [new THREE.Color(1.0, 0.85, 0.3), new THREE.Color(0.35, 1.0, 0.55)],
+      [new THREE.Color(0.65, 1.0, 0.51), new THREE.Color(0.14, 0.67, 0.71)],
+      [new THREE.Color(0.65, 1.0, 0.51), new THREE.Color(0.71, 0.8, 0.89)],
+      [new THREE.Color(1.0, 0.85, 0.3), new THREE.Color(0.65, 1.0, 0.51)],
     ];
     const arcs: { u: Record<string, THREE.IUniform>; i: number }[] = [];
     const cp: number[] = [], cc: number[] = [], cs2: number[] = [], cz: number[] = [];
@@ -311,9 +311,9 @@ export default function Globe({ onFail }: { onFail: () => void }) {
       globe.add(g);
       orbits.push({ sats, speed });
     }
-    addOrbit(1.42, 0x6dff8a, 0.4, 1.25, 0.35, 3, 0.35);
-    addOrbit(1.62, 0x2de8d0, 0.36, 0.35, -0.6, 2, -0.26);
-    addOrbit(1.82, 0xc8ff5a, 0.3, 1.9, 0.1, 2, 0.18);
+    addOrbit(1.42, 0xa7ff83, 0.4, 1.25, 0.35, 3, 0.35);
+    addOrbit(1.62, 0x23abb6, 0.36, 0.35, -0.6, 2, -0.26);
+    addOrbit(1.82, 0xb6cce4, 0.3, 1.9, 0.1, 2, 0.18);
 
     /* Étoiles */
     const sp2: number[] = [];
@@ -327,7 +327,7 @@ export default function Globe({ onFail }: { onFail: () => void }) {
     sg.setAttribute("position", new THREE.Float32BufferAttribute(sp2, 3));
     const stars = new THREE.Points(
       sg,
-      track(new THREE.PointsMaterial({ size: 0.09, color: 0xc8ffe0, transparent: true, opacity: 0.7, depthWrite: false })),
+      track(new THREE.PointsMaterial({ size: 0.09, color: 0xe5f4ef, transparent: true, opacity: 0.7, depthWrite: false })),
     );
     scene.add(stars);
 
