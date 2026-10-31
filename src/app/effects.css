@@ -6,8 +6,8 @@
 .hero { padding-bottom: calc(56px + var(--cut)); }
 .hero__in { position: relative; z-index: 1; pointer-events: none; }
 .hero__col { pointer-events: auto; }
-.hero__col > * { animation: rise .9s cubic-bezier(.2, .8, .2, 1) backwards; animation-delay: calc(var(--d, 0) * 110ms + 150ms); }
-@keyframes rise { from { opacity: 0; transform: translateY(24px); } }
+.hero__col > * { animation: rise .6s cubic-bezier(.2, .8, .2, 1) backwards; animation-delay: calc(var(--d, 0) * 70ms); }
+@keyframes rise { from { opacity: 0; transform: translateY(16px); } }
 .globe-drag { position: absolute; inset: 0; z-index: 0; cursor: grab; touch-action: pan-y; user-select: none; -webkit-user-select: none; }
 .globe-drag.is-drag { cursor: grabbing; }
 .live { position: relative; padding-left: 16px; }
