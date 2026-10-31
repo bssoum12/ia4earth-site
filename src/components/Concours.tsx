@@ -33,6 +33,15 @@ export default function Concours() {
         <div className="head" data-rv>
           <h2>IA4EARTH <span className="red">Startup Challenge</span></h2>
           <div className="lede"><p>Le concours met en lumière les idées, projets et startups qui appliquent l&apos;IA aux enjeux du développement durable. Les finalistes présentent leur solution devant le jury pendant le salon.</p></div>
+          <a
+            href="https://challenge.salondedeveloppementdurable.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn btn--glow"
+            style={{ marginTop: "1.5rem", display: "inline-flex" }}
+          >
+            Participer au concours →
+          </a>
         </div>
 
         <ol className="steps" data-rv style={{ "--idx": idx } as React.CSSProperties}>
