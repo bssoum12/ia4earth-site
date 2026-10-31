@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { PROFILES, PROGRAMME_PDF, SITE } from "@/lib/content";
+import { EMAIL_HINT, EMAIL_PATTERN } from "@/lib/validate";
 import Social from "./Social";
 import Turnstile, { TURNSTILE_FIELD, TURNSTILE_SITE_KEY } from "./Turnstile";
 
@@ -66,7 +67,7 @@ export default function Inscription() {
               <label htmlFor="f-nom">Nom complet<input id="f-nom" name="nom" type="text" autoComplete="name" required /></label>
               <label htmlFor="f-org">Organisation<input id="f-org" name="organisation" type="text" autoComplete="organization" /></label>
             </div>
-            <label htmlFor="f-mail">Adresse e-mail<input id="f-mail" name="email" type="email" autoComplete="email" required /></label>
+            <label htmlFor="f-mail">Adresse e-mail<input id="f-mail" name="email" type="email" autoComplete="email" pattern={EMAIL_PATTERN} title={EMAIL_HINT} maxLength={254} autoCapitalize="none" spellCheck={false} required /></label>
             <label htmlFor="f-profil">Votre catégorie
               <select id="f-profil" name="categorie" required defaultValue="">
                 <option value="">Choisir une catégorie</option>

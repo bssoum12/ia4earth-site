@@ -3,6 +3,7 @@ import path from "node:path";
 import { randomUUID } from "node:crypto";
 import { MASTERCLASSES, MASTERCLASS_CAPACITY } from "./content";
 import { StorageNotConfigured } from "./participants";
+import { cleanPhone, EMAIL_HINT, isEmail, PHONE_HINT } from "./validate";
 
 /* ---------------------------------------------------------------------
    Inscriptions aux master class : 20 places par master class, une master class par personne et par jour
@@ -24,7 +25,6 @@ export type MasterclassRegistration = {
 export type RegisterInput = Omit<MasterclassRegistration, "id" | "createdAt" | "day">;
 export type RegisterResult = "ok" | "full" | "duplicate" | "same_day";
 
-const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const str = (v: unknown, max: number) => (typeof v === "string" ? v.trim().slice(0, max) : "");
 
 export const findClass = (id: string) => MASTERCLASSES.find((m) => m.id === id);
@@ -37,10 +37,12 @@ export function parseRegistration(
   const email = str(body.email, 160).toLowerCase();
   if (!findClass(classId)) return { ok: false, error: "Master class inconnue." };
   if (!nom) return { ok: false, error: "Le nom est obligatoire." };
-  if (!EMAIL.test(email)) return { ok: false, error: "Adresse e-mail invalide." };
+  if (!isEmail(email)) return { ok: false, error: EMAIL_HINT };
+  const telephone = cleanPhone(str(body.telephone, 40));
+  if (telephone === null) return { ok: false, error: PHONE_HINT };
   return {
     ok: true,
-    value: { classId, nom, email, telephone: str(body.telephone, 40), organisation: str(body.organisation, 160) },
+    value: { classId, nom, email, telephone, organisation: str(body.organisation, 160) },
   };
 }
 
@@ -110,7 +112,9 @@ type Row = {
 
 function supabaseBackend(url: string, key: string): Backend {
   const root = `${url.replace(/\/$/, "")}/rest/v1`;
-  const headers = { apikey: key, Authorization: `Bearer ${key}`, "Content-Type": "application/json" };
+  // Clé « service_role » historique (JWT) : envoyée aussi en Authorization. Nouvelles clés « sb_secret_… » (pas des JWT) : apikey seule.
+  const headers: Record<string, string> = { apikey: key, "Content-Type": "application/json" };
+  if (key.split(".").length === 3) headers.Authorization = `Bearer ${key}`;
   async function call(p: string, init: RequestInit = {}) {
     const res = await fetch(root + p, { ...init, headers, cache: "no-store" });
     if (!res.ok) throw new Error(`Supabase ${res.status}: ${await res.text().catch(() => "")}`);

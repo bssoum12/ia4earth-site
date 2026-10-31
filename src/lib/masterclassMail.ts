@@ -1,6 +1,6 @@
 import { MASTERCLASS_DAYS, MASTERCLASS_TIME, PROGRAMME_PDF, SITE } from "./content";
 import { findClass, type RegisterInput } from "./masterclass";
-import { esc, programmeButton, sendMail } from "./mail";
+import { esc, logoHeader, programmeButton, sendMail } from "./mail";
 
 /**
  * E-mail de confirmation d'inscription à une master class, avec le lien du programme officiel en PDF.
@@ -12,6 +12,7 @@ export async function sendMasterclassConfirmation(input: RegisterInput): Promise
 
   const day = MASTERCLASS_DAYS.find((d) => d.day === cls.day)?.label ?? "";
   const html = `<div style="font-family:Arial,Helvetica,sans-serif;color:#0b2a21;line-height:1.5;max-width:560px">
+${logoHeader(SITE.url)}
 <h2 style="color:#0a7a4b;margin:0 0 12px">Votre place est réservée</h2>
 <p>Bonjour ${esc(input.nom)},</p>
 <p>Votre inscription à la master class suivante est confirmée :</p>

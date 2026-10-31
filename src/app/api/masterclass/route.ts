@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { MASTERCLASS_CAPACITY } from "@/lib/content";
+import { EMAIL_DOMAIN_ERROR, emailDomainExists } from "@/lib/emailDomain";
 import { masterclass, parseRegistration } from "@/lib/masterclass";
 import { sendMasterclassConfirmation } from "@/lib/masterclassMail";
 import { TURNSTILE_ERROR, TURNSTILE_FIELD, verifyTurnstile } from "@/lib/turnstile";
@@ -36,6 +37,9 @@ export async function POST(req: Request) {
   }
   if (!(await verifyTurnstile(body[TURNSTILE_FIELD], req))) {
     return NextResponse.json({ message: TURNSTILE_ERROR }, { status: 403 });
+  }
+  if (!(await emailDomainExists(parsed.value.email))) {
+    return NextResponse.json({ message: EMAIL_DOMAIN_ERROR }, { status: 422 });
   }
 
   try {

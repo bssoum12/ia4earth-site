@@ -262,6 +262,8 @@ h2::after { content: ""; display: block; width: 72px; height: 3px; margin-top: 1
 .foot { background: rgba(3, 24, 20, 0.92); padding-block: 40px; border-top: 1px solid var(--line); }
 .foot__row { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px 32px; }
 .foot p { color: var(--muted); font-size: .92rem; }
+.foot__logo { display: block; flex: none; width: 200px; padding: 8px 12px; background: #fff; }
+.foot__logo img { display: block; width: 100%; height: auto; }
 .foot a { text-underline-offset: 3px; }
 
 /* ---------- Responsive ---------- */

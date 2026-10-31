@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useState } from "react";
 import { MASTERCLASSES, MASTERCLASS_DAYS, MASTERCLASS_TIME, PROGRAMME_PDF } from "@/lib/content";
+import { EMAIL_HINT, EMAIL_PATTERN, PHONE_HINT, PHONE_PATTERN } from "@/lib/validate";
 import Turnstile, { TURNSTILE_FIELD, TURNSTILE_SITE_KEY } from "./Turnstile";
 
 type Counts = Record<string, number>;
@@ -113,9 +114,9 @@ export default function MasterclassList({ initialCounts, capacity }: { initialCo
                   {open && (
                     <form id={`mc-form-${m.id}`} className="form mc-form" onSubmit={(e) => onSubmit(e, m.id)} noValidate>
                       <label htmlFor={`n-${m.id}`}>Nom complet<input id={`n-${m.id}`} name="nom" type="text" autoComplete="name" required /></label>
-                      <label htmlFor={`e-${m.id}`}>Adresse e-mail<input id={`e-${m.id}`} name="email" type="email" autoComplete="email" required /></label>
+                      <label htmlFor={`e-${m.id}`}>Adresse e-mail<input id={`e-${m.id}`} name="email" type="email" autoComplete="email" pattern={EMAIL_PATTERN} title={EMAIL_HINT} maxLength={254} autoCapitalize="none" spellCheck={false} required /></label>
                       <div className="row2">
-                        <label htmlFor={`t-${m.id}`}>Téléphone<input id={`t-${m.id}`} name="telephone" type="tel" autoComplete="tel" /></label>
+                        <label htmlFor={`t-${m.id}`}>Téléphone<input id={`t-${m.id}`} name="telephone" type="tel" autoComplete="tel" inputMode="tel" pattern={PHONE_PATTERN} title={PHONE_HINT} maxLength={20} /></label>
                         <label htmlFor={`o-${m.id}`}>Organisation<input id={`o-${m.id}`} name="organisation" type="text" autoComplete="organization" /></label>
                       </div>
                       <div aria-hidden="true" style={{ position: "absolute", left: "-9999px" }}>

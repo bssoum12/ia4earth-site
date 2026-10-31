@@ -24,6 +24,10 @@ export async function sendMail(opts: { to: string; subject: string; html: string
 export const esc = (s: string) =>
   s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 
+/** Logo du salon en tête des e-mails (image servie par le site : public/logo-salon.png). */
+export const logoHeader = (siteUrl: string) =>
+  `<img src="${siteUrl}/logo-salon.png" alt="Salon de l'économie verte, finance responsable et développement durable" width="260" style="display:block;width:260px;max-width:100%;height:auto;margin:0 0 18px" />`;
+
 /** Bouton « Télécharger le programme » commun aux e-mails de confirmation. */
 export const programmeButton = (siteUrl: string, href: string, label: string) =>
   `<p style="margin:18px 0"><a href="${siteUrl}${href}" style="background:#0a7a4b;color:#ffffff;text-decoration:none;padding:12px 20px;border-radius:6px;font-weight:bold;display:inline-block">${label}</a></p>`;

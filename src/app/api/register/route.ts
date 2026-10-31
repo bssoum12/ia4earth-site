@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { parseParticipant, participants } from "@/lib/participants";
+import { EMAIL_DOMAIN_ERROR, emailDomainExists } from "@/lib/emailDomain";
 import { sendSalonConfirmation } from "@/lib/salonMail";
 import { TURNSTILE_ERROR, TURNSTILE_FIELD, verifyTurnstile } from "@/lib/turnstile";
 
@@ -31,10 +32,15 @@ export async function POST(req: Request) {
   const consent = body.consentement === "on" || body.consentement === true;
   const parsed = parseParticipant(body, { source: "site" });
   if (!parsed.ok || !consent) {
-    return NextResponse.json({ message: "Merci de renseigner tous les champs obligatoires." }, { status: 422 });
+    // Les erreurs de format (e-mail, téléphone) sont expliquées ; le reste reste générique.
+    const detail = !parsed.ok && /e-mail|Numéro/.test(parsed.error) ? parsed.error : "Merci de renseigner tous les champs obligatoires.";
+    return NextResponse.json({ message: detail }, { status: 422 });
   }
   if (!(await verifyTurnstile(body[TURNSTILE_FIELD], req))) {
     return NextResponse.json({ message: TURNSTILE_ERROR }, { status: 403 });
+  }
+  if (!(await emailDomainExists(parsed.value.email))) {
+    return NextResponse.json({ message: EMAIL_DOMAIN_ERROR }, { status: 422 });
   }
   const p = parsed.value;
 
