@@ -20,23 +20,34 @@ export default function Globe({ onFail }: { onFail: () => void }) {
     const tag = tagRef.current;
     if (!cv || !tag) return;
 
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    let reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const small = Math.min(window.innerWidth, window.innerHeight) < 600; // mobile : moins de points, moins de pixels
 
     let renderer: THREE.WebGLRenderer;
     try {
-      renderer = new THREE.WebGLRenderer({ canvas: cv, antialias: true, alpha: true });
+      renderer = new THREE.WebGLRenderer({ canvas: cv, antialias: !small, alpha: true });
     } catch {
       onFail();
       return;
     }
     renderer.setClearColor(0x000000, 0);
 
+    // Rendu logiciel (pas de GPU : SwiftShader, llvmpipe, pilote de base Windows) : l'animation continue
+    // saturerait le processeur et figerait la page. On affiche alors le globe en image fixe.
+    try {
+      const gl = renderer.getContext();
+      const info = gl.getExtension("WEBGL_debug_renderer_info");
+      const name = info ? String(gl.getParameter(info.UNMASKED_RENDERER_WEBGL)) : "";
+      if (/swiftshader|llvmpipe|software|basic render/i.test(name)) reduce = true;
+    } catch {
+      /* sans extension : on garde l'animation */
+    }
+
     const D2R = Math.PI / 180;
     const V3 = THREE.Vector3;
     let W = window.innerWidth;
     let H = window.innerHeight;
-    const dpr = Math.min(window.devicePixelRatio || 1, 1.75);
-    const small = Math.min(W, H) < 600; // mobile : moins de points
+    const dpr = Math.min(window.devicePixelRatio || 1, small ? 1.25 : 1.75);
     renderer.setPixelRatio(dpr);
     renderer.setSize(W, H, false);
 
@@ -92,7 +103,7 @@ export default function Globe({ onFail }: { onFail: () => void }) {
     }
     const lp: number[] = [], lc: number[] = [], ls: number[] = [], lz: number[] = [];
     const op: number[] = [], oc: number[] = [], os: number[] = [], oz: number[] = [];
-    const NP = small ? 18000 : 40000;
+    const NP = small ? 14000 : 40000;
     const GA = Math.PI * (3 - Math.sqrt(5));
     const seaStep = small ? 3 : 5;
     for (let i = 0; i < NP; i++) {
@@ -577,9 +588,12 @@ export default function Globe({ onFail }: { onFail: () => void }) {
       }
     }
 
+    let lastT = 0;
     function frame(now: number) {
       if (!running) return;
       raf = requestAnimationFrame(frame);
+      if (small && now - lastT < 30) return; // mobile : environ 30 images par seconde
+      lastT = now;
       render(now);
     }
     function start() {
