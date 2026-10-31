@@ -1,5 +1,5 @@
 import { PROGRAMME_PDF, SITE } from "./content";
-import { esc, programmeButton, sendMail } from "./mail";
+import { esc, logoHeader, programmeButton, sendMail } from "./mail";
 
 /**
  * E-mail de confirmation envoyé à la personne qui s'inscrit au salon, avec le lien de téléchargement
@@ -7,6 +7,7 @@ import { esc, programmeButton, sendMail } from "./mail";
  */
 export async function sendSalonConfirmation(p: { nom: string; email: string; categorie: string }): Promise<boolean> {
   const html = `<div style="font-family:Arial,Helvetica,sans-serif;color:#0b2a21;line-height:1.5;max-width:560px">
+${logoHeader(SITE.url)}
 <h2 style="color:#0a7a4b;margin:0 0 12px">Votre demande d'inscription est bien reçue</h2>
 <p>Bonjour ${esc(p.nom)},</p>
 <p>Merci de votre inscription au salon <b>IA4EARTH</b> (catégorie : ${esc(p.categorie)}). L'équipe vous écrit avec les informations pratiques.</p>

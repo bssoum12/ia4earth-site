@@ -2,6 +2,7 @@ import { promises as fs } from "node:fs";
 import path from "node:path";
 import { randomUUID } from "node:crypto";
 import { PROFILES } from "./content";
+import { cleanPhone, EMAIL_HINT, isEmail, PHONE_HINT } from "./validate";
 
 /* ---------------------------------------------------------------------
    Participants : stockage sur Supabase (production) ou fichier local (dev).
@@ -24,7 +25,6 @@ export type Participant = {
 export type ParticipantInput = Omit<Participant, "id" | "createdAt" | "badgePrintedAt">;
 
 const str = (v: unknown, max: number) => (typeof v === "string" ? v.trim().slice(0, max) : "");
-const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 export const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
 /** Valide et nettoie les données d'un participant. L'e-mail est facultatif pour une saisie manuelle. */
@@ -37,15 +37,17 @@ export function parseParticipant(
   const categorie = str(body.categorie ?? body.profil, 120);
   if (!nom) return { ok: false, error: "Le nom est obligatoire." };
   if (!PROFILES.includes(categorie)) return { ok: false, error: "Catégorie invalide." };
-  if (opts.source === "site" && !EMAIL.test(email)) return { ok: false, error: "Adresse e-mail invalide." };
-  if (email && !EMAIL.test(email)) return { ok: false, error: "Adresse e-mail invalide." };
+  if (opts.source === "site" && !isEmail(email)) return { ok: false, error: EMAIL_HINT };
+  if (email && !isEmail(email)) return { ok: false, error: EMAIL_HINT };
+  const telephone = cleanPhone(str(body.telephone, 40));
+  if (telephone === null) return { ok: false, error: PHONE_HINT };
   return {
     ok: true,
     value: {
       nom,
       organisation: str(body.organisation, 160),
       email,
-      telephone: str(body.telephone, 40),
+      telephone,
       categorie,
       message: str(body.message, 3000),
       source: opts.source,
@@ -140,7 +142,9 @@ const fromRow = (r: Row): Participant => ({
 
 function supabaseBackend(url: string, key: string): Backend {
   const base = `${url.replace(/\/$/, "")}/rest/v1/participants`;
-  const headers = { apikey: key, Authorization: `Bearer ${key}`, "Content-Type": "application/json" };
+  // Clé « service_role » historique (JWT) : envoyée aussi en Authorization. Nouvelles clés « sb_secret_… » (pas des JWT) : apikey seule.
+  const headers: Record<string, string> = { apikey: key, "Content-Type": "application/json" };
+  if (key.split(".").length === 3) headers.Authorization = `Bearer ${key}`;
   async function call(query: string, init: RequestInit = {}) {
     const res = await fetch(base + query, { ...init, headers: { ...headers, ...(init.headers ?? {}) }, cache: "no-store" });
     if (!res.ok) throw new Error(`Supabase ${res.status}: ${await res.text().catch(() => "")}`);

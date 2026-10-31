@@ -3,6 +3,7 @@
 import { useRouter } from "next/navigation";
 import { useMemo, useState } from "react";
 import { PROFILES } from "@/lib/content";
+import { EMAIL_HINT, EMAIL_PATTERN, PHONE_HINT, PHONE_PATTERN } from "@/lib/validate";
 import type { Participant } from "@/lib/participants";
 
 const fmt = new Intl.DateTimeFormat("fr-FR", { dateStyle: "short", timeStyle: "short", timeZone: "Africa/Tunis" });
@@ -120,8 +121,8 @@ export default function AdminClient({ initial }: { initial: Participant[] }) {
           <form className="adm-form adm-grid" onSubmit={(e) => add(e, false)}>
             <label>Nom complet *<input name="nom" required autoComplete="off" /></label>
             <label>Organisation<input name="organisation" autoComplete="off" /></label>
-            <label>E-mail<input name="email" type="email" autoComplete="off" /></label>
-            <label>Téléphone<input name="telephone" type="tel" autoComplete="off" /></label>
+            <label>E-mail<input name="email" type="email" autoComplete="off" pattern={EMAIL_PATTERN} title={EMAIL_HINT} maxLength={254} autoCapitalize="none" spellCheck={false} /></label>
+            <label>Téléphone<input name="telephone" type="tel" autoComplete="off" inputMode="tel" pattern={PHONE_PATTERN} title={PHONE_HINT} maxLength={20} /></label>
             <label>Catégorie *
               <select name="categorie" required defaultValue="">
                 <option value="" disabled>Choisir</option>
