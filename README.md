@@ -24,6 +24,9 @@ Liste des participants (inscriptions du site + saisie manuelle), recherche, filt
 - **Stockage** : en production, Supabase (exécuter `supabase/schema.sql`, puis définir `SUPABASE_URL` et `SUPABASE_SERVICE_ROLE_KEY`). Sans ces variables, un fichier local `.data/participants.json` est utilisé : développement uniquement (le disque Vercel est éphémère).
 - **Badge** : maquette provisoire (90 × 130 mm) dans `src/components/admin/BadgeCard.tsx` ; la taille d'impression est dans `@page` de `src/app/admin/admin.css`. À remplacer avec la maquette définitive.
 
+## Programme PDF
+Le programme officiel est servi depuis `public/programme-officiel-ia4earth-2026.pdf` (constante `PROGRAMME_PDF` dans `src/lib/content.ts`). Un bouton de téléchargement apparaît après une inscription (salon ou master class), et le lien figure dans les e-mails de confirmation (`src/lib/salonMail.ts`, `src/lib/masterclassMail.ts`, envoi via `src/lib/mail.ts`). Pour mettre à jour le programme, remplacer le fichier PDF en gardant le même nom.
+
 ## Master class (/masterclass)
 Neuf master class (3 le jeudi, 6 le vendredi, 12h à 13h30) définies dans `MASTERCLASSES` (`src/lib/content.ts`). Inscription en ligne par master class via `POST /api/masterclass` : **20 places maximum** (`MASTERCLASS_CAPACITY`), le bouton passe sur « Complet » et l'API refuse (409) dès que la limite est atteinte. Une personne (e-mail) ne peut s'inscrire qu'à une master class par jour, car elles ont lieu en parallèle.
 - **Stockage** : même règle que les participants. En production, exécuter la partie « Master class » de `supabase/schema.sql` (table et fonction `register_masterclass`, qui verrouille et compte de façon atomique) ; en développement, fichier `.data/masterclass.json`.

@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useState } from "react";
-import { MASTERCLASSES, MASTERCLASS_DAYS, MASTERCLASS_TIME } from "@/lib/content";
+import { MASTERCLASSES, MASTERCLASS_DAYS, MASTERCLASS_TIME, PROGRAMME_PDF } from "@/lib/content";
 
 type Counts = Record<string, number>;
 type Status = { kind: "idle" } | { kind: "sending" } | { kind: "ok" | "error"; msg: string };
@@ -126,6 +126,9 @@ export default function MasterclassList({ initialCounts, capacity }: { initialCo
                   <p className={`status mc-status${st.kind === "error" ? " is-error" : ""}`} role="status" aria-live="polite" hidden={st.kind === "idle" || st.kind === "sending"}>
                     {st.kind === "ok" || st.kind === "error" ? st.msg : ""}
                   </p>
+                  {done && (
+                    <a className="btn btn--ghost" href={PROGRAMME_PDF.href} download>{PROGRAMME_PDF.label}</a>
+                  )}
                 </li>
               );
             })}

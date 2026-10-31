@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { PROFILES, SITE } from "@/lib/content";
+import { PROFILES, PROGRAMME_PDF, SITE } from "@/lib/content";
 import Social from "./Social";
 
 type State = { kind: "idle" } | { kind: "sending" } | { kind: "ok" | "error"; msg: string };
@@ -82,6 +82,9 @@ export default function Inscription() {
             <p className="status" role="status" aria-live="polite" hidden={state.kind === "idle" || state.kind === "sending"}>
               {state.kind === "ok" || state.kind === "error" ? state.msg : ""}
             </p>
+            {state.kind === "ok" && (
+              <a className="btn btn--ghost" href={PROGRAMME_PDF.href} download>{PROGRAMME_PDF.label}</a>
+            )}
           </form>
 
           <dl className="info">
