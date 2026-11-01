@@ -173,6 +173,14 @@ export const CHALLENGE_CATS = [
   { c: "violet", title: "Startup", text: "Une grille d'évaluation dédiée, notée sur 100 points, pour présenter une entreprise lancée et sa solution." },
 ];
 
+// Source : affiche « Jury Challenge Startup » (5 et 6 novembre 2026). Ordre de l'affiche.
+export const JURY = [
+  { slug: "slim-saidani", name: "Slim A. SAÏDANI", role: "Président", bio: "Dirigeant d’entreprise, conférencier et essayiste. Expert en stratégie internationale et prospective stratégique" },
+  { slug: "wissem-weslati", name: "Wissem Weslati", role: "Membre", bio: "Expert e-commerce et transformation digitale" },
+  { slug: "dhouha-doghri", name: "Dhouha Doghri", role: "Membre", bio: "Experte en marketing digital" },
+  { slug: "bassem-thabti", name: "Bassem Thabti", role: "Coordinateur, chef du projet", bio: "Commissaire général adjoint, expert en transformation digitale et intelligence artificielle" },
+];
+
 // Ordre de l'affiche officielle : ne pas réordonner.
 export const TEAM = [
   { slug: "jihene-el-ouakdi", name: "Jihene El Ouakdi", role: "Marraine de l'évènement", bio: "Directrice de l'École Supérieure de l'Économie Numérique" },

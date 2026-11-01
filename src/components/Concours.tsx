@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { CHALLENGE_CATS, CHALLENGE_STEPS } from "@/lib/content";
+import Image from "next/image";
+import { CHALLENGE_CATS, CHALLENGE_STEPS, JURY } from "@/lib/content";
 
 type Status = "done" | "next" | "later";
 const LABELS: Record<Status, string> = { done: "Terminé", next: "Prochaine étape", later: "À venir" };
@@ -57,6 +58,29 @@ export default function Concours() {
             </article>
           ))}
         </div>
+
+        <h3 className="sub" data-rv style={{ marginTop: 56 }}>Le <span className="red">jury</span> du Challenge Startup</h3>
+        <ul className="team" style={{ marginTop: 22 }}>
+          {JURY.map((m, i) => (
+            <li key={m.slug} className="member" data-rv style={{ "--i": i % 2 } as React.CSSProperties}>
+              <span className="photo-wrap">
+                <Image
+                  className="photo"
+                  src={`/team/${m.slug}.jpg`}
+                  alt={`Portrait de ${m.name}`}
+                  width={168}
+                  height={168}
+                  sizes="84px"
+                />
+              </span>
+              <div className="member__txt">
+                <h4>{m.name}</h4>
+                <p className="role">{m.role}</p>
+                <p>{m.bio}</p>
+              </div>
+            </li>
+          ))}
+        </ul>
       </div>
     </section>
   );
