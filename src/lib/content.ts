@@ -239,7 +239,7 @@ export const SPEAKERS: Record<number, { keynote?: Person; moderator: Person; pan
   1: {
     moderator: ["Me Fatma Attia", "Avocate associée, Ayadi & Attia Law Firm"],
     panelists: [
-      ["Dr Oumaima Laifa", "CEO d'Euklydia France"],
+      ["Slim A. SAÏDANI", "Dirigeant d’entreprise, conférencier et essayiste. Expert en stratégie internationale et prospective stratégique"],
       ["Samiha Chaabani", "Experte senior en stratégie data et IA"],
       ["Amine Chouaib", "Entrepreneur innovateur, PDG de Chifco Group"],
       ["Hatem Mliki", "Expert en développement économique et gouvernance"],
