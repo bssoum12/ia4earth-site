@@ -248,7 +248,6 @@ export const SPEAKERS: Record<number, { keynote?: Person; moderator: Person; pan
     moderator: ["Me Fatma Attia", "Avocate associée, Ayadi & Attia Law Firm"],
     panelists: [
       ["Slim A. SAÏDANI", "Dirigeant d’entreprise, conférencier et essayiste. Expert en stratégie internationale et prospective stratégique"],
-      ["Samiha Chaabani", "Experte senior en stratégie data et IA"],
       ["Amine Chouaib", "Entrepreneur innovateur, PDG de Chifco Group"],
       ["Hatem Mliki", "Expert en développement économique et gouvernance"],
       ["Pr Najiba Mrabet Bellaaj", "Institut Supérieur d'Informatique, responsable qualité, coordinatrice PAQ DGSE RISE-ISI"],
