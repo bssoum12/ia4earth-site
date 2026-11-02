@@ -270,7 +270,6 @@ export const SPEAKERS: Record<number, { keynote?: Person; moderator: Person; pan
     moderator: ["Pr Ahmed Snoussi", "Directeur général de l'École Supérieure des Industries Alimentaires de Tunis"],
     panelists: [
       ["Pr Mehdi Ben Mimoun", "Professeur à l'INAT"],
-      ["Pr Faten Khamessi", "Professeure à l'INAT"],
       ["Asma Omri", "CEO et cofondatrice d'ARUMA"],
       ["Dr Bilel Marzouki", "Maître assistant, École Nationale des Sciences de l'Informatique (ENSI)"],
       ["Yasser Bououd", "Fondateur d'EZZAYRA"],
