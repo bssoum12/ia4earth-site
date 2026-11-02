@@ -259,7 +259,6 @@ export const SPEAKERS: Record<number, { keynote?: Person; moderator: Person; pan
     moderator: ["Dr Nadia Mansour", "Professeure à l'Université de Sousse, chercheuse invitée à l'Université de Salamanque (Espagne)"],
     panelists: [
       ["Dr Alix Willemez", "Experte en gouvernance climatique"],
-      ["Anis Oueslati", "Directeur général d'Auto Hall"],
       ["Mohamed Hayouni", "Maître de conférences à l'ISI Kef"],
       ["Saloua Languar", "Présidente de l'Institut de Responsabilité Sociétale des Entreprises en Tunisie (IRSET)"],
       ["Nadia Abeoub", "Directrice de l'ESCT"],
