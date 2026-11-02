@@ -32,10 +32,10 @@ export default async function MasterclassPage() {
           <div className="head">
             <h1>Les <span className="red">master class</span></h1>
             <div className="lede">
-              <p>Des ateliers pratiques de 1h30, animés par des experts, les deux jours du salon. Chaque master class est limitée à {MASTERCLASS_CAPACITY} participants : l&apos;inscription se ferme automatiquement quand les places sont prises.</p>
+              <p>Des ateliers pratiques de 1h30, animés par des experts, les deux jours du salon. Les places de chaque master class sont limitées : l&apos;inscription se ferme automatiquement quand elles sont prises.</p>
               <ul className="chips access">
                 <li><span>12h à 13h30</span></li>
-                <li><span>{MASTERCLASS_CAPACITY} places par master class</span></li>
+                <li><span>Places limitées</span></li>
                 <li><span>Une master class par jour et par personne</span></li>
               </ul>
               <p className="note">Les master class d&apos;une même journée ont lieu en parallèle, au même horaire : vous pouvez en suivre une par jour. L&apos;entrée au salon reste soumise à l&apos;<a href="/#inscription">inscription au salon</a>.</p>

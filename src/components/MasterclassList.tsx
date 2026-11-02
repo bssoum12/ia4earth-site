@@ -81,17 +81,8 @@ export default function MasterclassList({ initialCounts, capacity }: { initialCo
                   </div>
 
                   <div className="mc-places" role="group" aria-label="Places">
-                    <div className="mc-bar" aria-hidden="true">
-                      <i style={{ width: taken === undefined ? "0%" : `${Math.min(100, (taken / capacity) * 100)}%` }} />
-                    </div>
-                    <p className={`mc-left${full ? " is-full" : left !== null && left <= 5 ? " is-low" : ""}`}>
-                      {left === null
-                        ? `${capacity} places`
-                        : full
-                          ? "Complet"
-                          : left <= 5
-                            ? `Dernières places : ${left} restante${left > 1 ? "s" : ""}`
-                            : `${left} places restantes sur ${capacity}`}
+                    <p className={`mc-left${full ? " is-full" : ""}`}>
+                      {full ? "Complet" : "Places limitées"}
                     </p>
                   </div>
 
