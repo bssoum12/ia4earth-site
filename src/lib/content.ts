@@ -288,6 +288,8 @@ export const SPEAKERS: Record<number, { keynote?: Person; moderator: Person; pan
 /* Master class : source « Planning des masterclasses » (5 et 6 novembre 2026, 12h à 13h30). */
 export const MASTERCLASS_CAPACITY = 20;
 export const MASTERCLASS_TIME = "12h à 13h30";
+/** Master class fermées manuellement : affichées « Complet » et inscriptions refusées, quel que soit le nombre d'inscrits. */
+export const MASTERCLASS_CLOSED: readonly string[] = ["j2-entreprise-intelligente"];
 
 export const MASTERCLASS_DAYS = [
   { day: 1, label: "Jeudi 5 novembre 2026", c: "cyan" },

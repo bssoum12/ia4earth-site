@@ -1,7 +1,7 @@
 import { promises as fs } from "node:fs";
 import path from "node:path";
 import { randomUUID } from "node:crypto";
-import { MASTERCLASSES, MASTERCLASS_CAPACITY } from "./content";
+import { MASTERCLASSES, MASTERCLASS_CAPACITY, MASTERCLASS_CLOSED } from "./content";
 import { StorageNotConfigured } from "./participants";
 import { cleanPhone, EMAIL_HINT, isEmail, PHONE_HINT } from "./validate";
 
@@ -171,5 +171,6 @@ export const masterclass = {
   // async : une configuration manquante devient un rejet de promesse (capturable), pas une exception synchrone.
   counts: async () => backend().counts(),
   list: async () => backend().list(),
-  register: async (input: RegisterInput) => backend().register(input, findClass(input.classId)!.day),
+  register: async (input: RegisterInput): Promise<RegisterResult> =>
+    MASTERCLASS_CLOSED.includes(input.classId) ? "full" : backend().register(input, findClass(input.classId)!.day),
 };

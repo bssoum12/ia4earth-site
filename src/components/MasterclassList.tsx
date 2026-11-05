@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useState } from "react";
-import { MASTERCLASSES, MASTERCLASS_DAYS, MASTERCLASS_TIME, PROGRAMME_PDF } from "@/lib/content";
+import { MASTERCLASSES, MASTERCLASS_CLOSED, MASTERCLASS_DAYS, MASTERCLASS_TIME, PROGRAMME_PDF } from "@/lib/content";
 import { EMAIL_HINT, EMAIL_PATTERN, PHONE_HINT, PHONE_PATTERN } from "@/lib/validate";
 import Turnstile, { TURNSTILE_FIELD, TURNSTILE_SITE_KEY } from "./Turnstile";
 
@@ -63,7 +63,7 @@ export default function MasterclassList({ initialCounts, capacity }: { initialCo
             {MASTERCLASSES.filter((m) => m.day === d.day).map((m) => {
               const taken = counts?.[m.id];
               const left = taken === undefined ? null : Math.max(0, capacity - taken);
-              const full = left === 0;
+              const full = left === 0 || MASTERCLASS_CLOSED.includes(m.id);
               const st = status[m.id] ?? { kind: "idle" };
               const open = openId === m.id && !full;
               const done = st.kind === "ok";
